@@ -9,6 +9,15 @@
 <body>
     <h1>Bem-vindo a Minha Confeitaria</h1>
     <p>Escolha uma das opções abaixo:</p>
+    {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}!</p>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Sair</button>
+        </form>
+    {% else %}
+        <a href="{% url 'login' %}">Área do Funcionário (Entrar)</a>
+    {% endif %}
     <ul>
         <li><a href="{% url 'catalogo:lista_bolos' %}">Nossos Bolos</a></li>
         {% if user.is_authenticated %}
